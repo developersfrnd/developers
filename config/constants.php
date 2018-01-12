@@ -3,7 +3,7 @@
 return [
 	
 	'ADMIN_URL' => 'manager',
-	'SITE_TITLE' => 'Ecomm',
+	'SITE_TITLE' => 'DevelopersFrnd',
 ];
 
 ?>

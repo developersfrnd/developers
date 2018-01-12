@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class CategoriesController extends Controller
+class CategoriesController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        dd('hello');
     }
 
     /**

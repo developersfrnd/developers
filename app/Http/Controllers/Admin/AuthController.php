@@ -33,22 +33,14 @@ class AuthController extends AdminController
 	}
 
 	public function dashboard(){
-		$projects_count = \App\Project::all()->count();
-		$orders_count = \App\Order::all()->count();
+		$categories_count = \App\Category::all()->count();
+		$blogs_count = \App\Blog::all()->count();
 		$users_count = \App\User::all()->count();
-		return view('admin.auth.dashboard',compact('projects_count','orders_count','users_count'));
+		return view('admin.auth.dashboard',compact('categories_count','blogs_count','users_count'));
 	}
 
 	public function logout(){
 		Auth::logout();
 		return redirect('/'.$this->ADMIN_URL);
 	}
-
-	public function switchLang($lang)
-    {
-        //$language = Session::get('language', Config::get('app.locale'));
-        App::setLocale($lang);
-        Session::put('language', $lang);
-        return redirect($this->ADMIN_URL.'/dashboard');
-    }
 }
