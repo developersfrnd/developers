@@ -25,8 +25,9 @@ class BlogsController extends Controller
      */
     public function create()
     {   
+        $categories = \App\Category::pluck('name','id');
         $blog = new Blog();
-        return view('admin.blogs.create',compact('blog'));
+        return view('admin.blogs.create',compact('blog','categories'));
     }
 
     /**

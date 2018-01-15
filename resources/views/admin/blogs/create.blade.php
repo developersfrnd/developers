@@ -2,8 +2,10 @@
 @section('content')
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script type="text/javascript" src="http://malsup.github.io/jquery.form.js"></script>
-<script>
-tinymce.init({
+
+
+<script type="text/javascript">
+	tinymce.init({
         selector: '#content',
         height: 400,
         menubar: true,
@@ -60,6 +62,14 @@ tinymce.init({
 	    <?php } ?>
 	    {{ csrf_field() }}
 	      <div class="box-body">
+	        <div class="form-group">
+	          <label for="category_id">Category</label>
+	          <select class="form-control" id="category_id" name="category_id">
+	          	@foreach($categories as $key=>$category)
+	          		<option value="{{ $key }}">{{ $category }}</option>
+	          	@endforeach
+	          </select>
+	        </div>
 	        <div class="form-group">
 	          <label for="name">Title</label>
 	          <input type="text" class="form-control" id="title" placeholder="Enter Title" name="name" value="<?php echo old('title',$blog->title); ?>">

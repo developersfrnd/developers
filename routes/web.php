@@ -27,6 +27,6 @@ Route::group(array('prefix'=> config('constants.ADMIN_URL')), function ()	{
 			Route::get('/dashboard','Admin\AuthController@dashboard');
 			Route::resource('/categories','Admin\CategoriesController');
 
-			Route::resource('/blogs','Admin\blogsController');
+			Route::resource('/blogs','Admin\BlogsController');
 		});	
 	});
