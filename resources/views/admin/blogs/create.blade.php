@@ -1,5 +1,48 @@
 @extends('layouts.admin')
 @section('content')
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script type="text/javascript" src="http://malsup.github.io/jquery.form.js"></script>
+<script>
+tinymce.init({
+        selector: '#content',
+        height: 400,
+        menubar: true,
+        statusbar: true,
+        relative_urls: false,
+        remove_script_host: false,
+        convert_urls: true,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code'
+        ],
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist| image',
+        content_css: '//www.tinymce.com/css/codepen.min.css',
+        //image upload
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        images_upload_url: '<?php echo url('/blogs/editorimageuploader'); ?>',
+        images_upload_base_path: '',
+        file_picker_callback: function (callback, value, meta) {
+            if (meta.filetype == 'image') {
+                var input = document.getElementById('my-file');
+                input.onchange = function () {
+                    var file = input.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        callback(e.target.result, {
+                            alt: file.name
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                input.click();
+            }
+        }
+    });
+</script>
+
 <link href="{{ asset('assets/vendor/plugins') }}/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
 <section class="content">
 	<div class="row">
@@ -11,39 +54,36 @@
 	      <h3 class="box-title">Add Products</h3>
 	    </div><!-- /.box-header -->
 	    <!-- form start -->
-	    <form method="post" action="<?php echo url($ADMIN_URL.'/products',$product->id);?>" enctype="multipart/form-data">
-	    <?php if($product->id){ ?>
+	    <form method="post" action="<?php echo url($ADMIN_URL.'/products',$blog->id);?>" enctype="multipart/form-data">
+	    <?php if($blog->id){ ?>
 	    <input type="hidden" name="_method" value="PATCH">	
 	    <?php } ?>
 	    {{ csrf_field() }}
 	      <div class="box-body">
 	        <div class="form-group">
-	          <label for="name">Name</label>
-	          <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="<?php echo old('name',$product->name); ?>">
+	          <label for="name">Title</label>
+	          <input type="text" class="form-control" id="title" placeholder="Enter Title" name="name" value="<?php echo old('title',$blog->title); ?>">
 	        </div>
 	        <div class="form-group">
-	          <label for="name">Model number</label>
-	          <input type="text" class="form-control" id="model" placeholder="Enter model number" name="model_no" value="<?php echo old('model_no',$product->model_no); ?>">
-	        </div>
-	        <div class="form-group">
-	          <label for="sku">SKU</label>
-	          <input type="text" class="form-control" id="sku" placeholder="Enter SKU" name="sku" value="<?php echo old('sku',$product->sku); ?>">
+	          <label for="name">Meta Title</label>
+	          <input type="text" class="form-control" id="model" placeholder="Enter model number" name="model_no" value="<?php echo old('meta_title',$blog->meta_title); ?>">
 	        </div>
 	        <div class="form-group">
 	          <label>MetaTag Keyword</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_keyword"><?php echo old('meta_keyword',$product->meta_keyword); ?></textarea>
+	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_keyword"><?php echo old('meta_keyword',$blog->meta_keyword); ?></textarea>
 	        </div>
 	        <div class="form-group">
 	          <label>MetaTag Description</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_description"><?php echo old('meta_description',$product->meta_description); ?></textarea>
+	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_description"><?php echo old('meta_description',$blog->meta_description); ?></textarea>
 	        </div>
 	        <div class="form-group">
 	          <label>short Description</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="short_description"><?php echo old('short_description',$product->short_description); ?></textarea>
+	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="short_description"><?php echo old('short_description',$blog->short_description); ?></textarea>
 	        </div>
 	        <div class="form-group">
-	          <label>Description</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="description"><?php echo old('description',$product->description); ?></textarea>
+	          <label>content</label>
+	          <input id="my-file" type="file" name="my-file" style="display: none;" onchange="" />
+	          <textarea id="content" class="form-control" rows="3" placeholder="Enter ..." name="content"><?php echo old('content',$blog->content); ?></textarea>
 	        </div>
 	      </div><!-- /.box-body -->
 	      <div class="box-footer">

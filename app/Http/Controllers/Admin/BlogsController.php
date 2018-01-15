@@ -15,7 +15,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.blogs.index');
     }
 
     /**
@@ -24,8 +24,9 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $blog = new Blog();
+        return view('admin.blogs.create',compact('blog'));
     }
 
     /**
@@ -36,7 +37,9 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $blog = new Blog;
+       $blog->save($request->all());
+       return redirect($this->ADMIN_URL.'/blogs'); 
     }
 
     /**
@@ -82,5 +85,14 @@ class BlogsController extends Controller
     public function destroy(Blog $blog)
     {
         //
+    }
+
+    public function postEditorimageuploader(){
+        
+        //pr($this->request->data);
+        if (isset($this->request->data['file']['name']) && !empty($this->request->data['file']['name'])) {
+            $filename = $this->Upload->upload($this->request->data['file']);
+            echo json_encode(array('location' => $this->UPLOADS.$filename));
+        }
     }
 }
