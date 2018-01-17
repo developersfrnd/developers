@@ -39,6 +39,7 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
        $blog = new Blog;
+       //dd($request->all());
        $blog->save($request->all());
        return redirect($this->ADMIN_URL.'/blogs'); 
     }

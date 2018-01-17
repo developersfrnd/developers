@@ -11,7 +11,7 @@
         menubar: true,
         statusbar: true,
         relative_urls: false,
-        remove_script_host: false,
+        remove_script_host: true,
         convert_urls: true,
         plugins: [
             'advlist autolink lists link image charmap print preview anchor',
@@ -56,7 +56,7 @@
 	      <h3 class="box-title">Add Products</h3>
 	    </div><!-- /.box-header -->
 	    <!-- form start -->
-	    <form method="post" action="<?php echo url($ADMIN_URL.'/products',$blog->id);?>" enctype="multipart/form-data">
+	    <form method="post" action="<?php echo url($ADMIN_URL.'/blogs',$blog->id);?>" enctype="multipart/form-data">
 	    <?php if($blog->id){ ?>
 	    <input type="hidden" name="_method" value="PATCH">	
 	    <?php } ?>
@@ -72,15 +72,15 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="name">Title</label>
-	          <input type="text" class="form-control" id="title" placeholder="Enter Title" name="name" value="<?php echo old('title',$blog->title); ?>">
+	          <input type="text" class="form-control" id="title" placeholder="Enter Title" name="title" value="<?php echo old('title',$blog->title); ?>">
 	        </div>
 	        <div class="form-group">
 	          <label for="name">Meta Title</label>
-	          <input type="text" class="form-control" id="model" placeholder="Enter model number" name="model_no" value="<?php echo old('meta_title',$blog->meta_title); ?>">
+	          <input type="text" class="form-control" id="meta_title" placeholder="Enter meta_title" name="meta_title" value="<?php echo old('meta_title',$blog->meta_title); ?>">
 	        </div>
 	        <div class="form-group">
 	          <label>MetaTag Keyword</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_keyword"><?php echo old('meta_keyword',$blog->meta_keyword); ?></textarea>
+	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_keywords"><?php echo old('meta_keywords',$blog->meta_keywords); ?></textarea>
 	        </div>
 	        <div class="form-group">
 	          <label>MetaTag Description</label>
@@ -88,7 +88,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label>short Description</label>
-	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="short_description"><?php echo old('short_description',$blog->short_description); ?></textarea>
+	          <textarea class="form-control" rows="3" placeholder="Enter ..." name="short_desc"><?php echo old('short_desc',$blog->short_desc); ?></textarea>
 	        </div>
 	        <div class="form-group">
 	          <label>content</label>
