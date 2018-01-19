@@ -7,7 +7,7 @@
 	  <!-- general form elements -->
 	  <div class="box box-primary">
 	    <div class="box-header">
-	      <h3 class="box-title">Add Projects</h3>
+	      <h3 class="box-title">Add Category</h3>
 	    </div><!-- /.box-header -->
 	    <!-- form start -->
 	    <form method="post" action="<?php echo url($ADMIN_URL.'/categories/'.$category->id);?>" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
 	      <div class="box-body">
 	      	<div class="form-group">
 	          <label for="category_id">Category</label>
-	          <select class="form-control" id="category_id" name="category_id">
+	          <select class="form-control" id="category_id" name="parent_id">
 	          	@foreach($categories as $key=>$category)
 	          		<option value="{{ $key }}">{{ $category }}</option>
 	          	@endforeach

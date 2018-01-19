@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use Illuminate\Http\Request;
 
+
 class CategoriesController extends AdminController
 {
     /**
@@ -24,7 +25,8 @@ class CategoriesController extends AdminController
      */
     public function create()
     {
-        //
+        $category = new Category;
+        return view('admin.categories.create',compact('category'));
     }
 
     /**
@@ -35,7 +37,12 @@ class CategoriesController extends AdminController
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category;
+        $category->parent_id = $request->parent_id;
+        $category->name = $request->name;
+        $category->status = '1';
+        $category->save();
+        return back()->with('status','Record Saved Successfully.');
     }
 
     /**
@@ -69,7 +76,12 @@ class CategoriesController extends AdminController
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category = Category::find($category->id);
+        $category->parent_id = $request->parent_id;
+        $category->name = $request->name;
+        $category->status = '1';
+        $category->save();
+        return back()->with('status','Record Saved Successfully.');
     }
 
     /**

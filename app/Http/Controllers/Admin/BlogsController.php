@@ -40,8 +40,16 @@ class BlogsController extends Controller
     {
        $blog = new Blog;
        //dd($request->all());
-       $blog->save($request->all());
-       return redirect($this->ADMIN_URL.'/blogs'); 
+       $blog->category_id = $request->category_id;
+       $blog->title = $request->title;
+       $blog->short_desc = $request->short_desc;
+       $blog->meta_title = $request->meta_title;
+       $blog->meta_keywords = $request->meta_keywords;
+       $blog->meta_description = $request->meta_description;
+       $blog->status = '1';
+
+       $blog->save();
+       return back()->with('status','Record Saved Successfully.'); 
     }
 
     /**
@@ -75,7 +83,17 @@ class BlogsController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+       $blog = Blog::find($blog->id);
+       //dd($request->all());
+       $blog->category_id = $request->category_id;
+       $blog->title = $request->title;
+       $blog->short_desc = $request->short_desc;
+       $blog->meta_title = $request->meta_title;
+       $blog->meta_keywords = $request->meta_keywords;
+       $blog->meta_description = $request->meta_description;
+       
+       $blog->save();
+       return back()->with('status','Record Updated Successfully.'); 
     }
 
     /**
