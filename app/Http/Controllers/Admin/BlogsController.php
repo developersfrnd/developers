@@ -115,4 +115,24 @@ class BlogsController extends Controller
             echo json_encode(array('location' => $this->UPLOADS.$filename));
         }
     }
+
+    public function getBlogTags($blog_id){
+
+      $tags = \App\Tag::where(['status'=>'1'])->get();
+      $blog = Blog::find($blog_id);
+
+      $blog_tags = [];
+      foreach ($blog->tag as $tag) {
+          $blog_tags[] = $tag->pivot->tag_id;
+      }
+      
+      return view('admin.blogs.tags',compact('tags','blog'));
+    }
+
+    public function postBlogTags(Request $request,$blog_id){
+        $blog = Blog::find($blog_id);
+        $blog->tags()->detach();
+        $blog->tags()->attach($request->all(););
+        return redirect($this->ADMIN_URL.'/blogs/blog-tags/'.$blog->id)->with('status','Added Successfully!'); 
+    }
 }
